@@ -3,6 +3,10 @@ package com.jk.logging;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.ListBucketsRequest;
+import software.amazon.awssdk.services.s3.model.ListBucketsResponse;
+
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -21,6 +25,13 @@ public class Main {
         LogManager.getLogger(Main.class);
 
     public static void main(String[] args) throws InterruptedException {
+
+        // 이 부분의 로그는 log4j2.xml에 아래 메서드를 실행하는 클래스를 등록해놨으니 출력이 된다.
+        // 이런 식으로 사용하면 된다.
+        S3Client s3 = S3Client.builder().build();
+		ListBucketsRequest listBucketsRequest = ListBucketsRequest.builder().build();
+	    ListBucketsResponse listBucketsResponse = s3.listBuckets(listBucketsRequest);
+	    listBucketsResponse.buckets().stream().forEach(x -> System.out.println(x.name()));
 
         logger.info("----------------------- Log Test Start!!!! -----------------------");
         Long started = System.currentTimeMillis();

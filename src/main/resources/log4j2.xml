@@ -34,6 +34,8 @@
     </S3Appender>
   </Appenders>
   <Loggers>
+      <Logger name="software.amazon.awssdk" level="WARN" />
+      <Logger name="software.amazon.awssdk.request" level="DEBUG" />
     <Root level="INFO">
       <AppenderRef ref="ConsoleAppender" />
       <AppenderRef ref="S3Appender" />
