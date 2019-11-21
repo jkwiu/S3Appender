@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO">
+  <Appenders>
+    <Console name="ConsoleAppender" target="SYSTEM_OUT">
+      <PatternLayout pattern="%d{HH:mm:ss,SSS} [%t] %-5p %c{36} - %m%n"/>
+    </Console>
+    <S3Appender name="S3Appender">
+      <PatternLayout pattern="%d{HH:mm:ss,SSS} [%t] %-5p %c{36} - %m%n"/>
+      <verbose>false</verbose>
+
+      <!-- Examples of optional tags to attach to entries (applicable only to SOLR & Elasticsearch)-->
+      <tags>TEST,ONE,TWO;THREE</tags>
+
+      <!-- Number of messages (lines of log) to buffer before publishing out -->
+      <stagingBufferSize>10</stagingBufferSize>
+      <!-- Uncomment below to override stagingBufferSize and to attempt a publish every 15 minutes -->
+        <!--<stagingBufferAge>15</stagingBufferAge>-->
+
+      <!-- Uncomment AND configure the lines below to enable upload to S3 -->
+        <s3Bucket>jk.test</s3Bucket>
+        <s3Path>logs/test/</s3Path>
+
+        <s3Region>ap-northeast-2</s3Region>
+        <!-- NOTE: Only s3Region above or (s3ServiceEndpoint + s3SigningRegion) below can be used at one time -->
+        <!--<s3ServiceEndpoint>...</s3ServiceEndpoint>-->
+        <!--<s3SigningRegion>...</s3SigningRegion>-->
+
+      <!-- Uncomment below to apply GZIP compression on content sent to S3 -->
+        <s3Compression>false</s3Compression>
+
+      <!-- Uncomment below to use SSE for S3. NOTE: SSE_S3 is the only supported option right now -->
+        <s3SseKeyType>SSE_S3</s3SseKeyType>
+
+    </S3Appender>
+  </Appenders>
+  <Loggers>
+    <Root level="INFO">
+      <AppenderRef ref="ConsoleAppender" />
+      <AppenderRef ref="S3Appender" />
+    </Root>
+  </Loggers>
+</Configuration>

@@ -1,4 +1,4 @@
-package com.jk.logging;
+package com.jk.logging.s3;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -10,16 +10,11 @@ import org.apache.logging.log4j.core.Filter;
 import org.apache.logging.log4j.core.Layout;
 import org.apache.logging.log4j.core.LogEvent;
 import org.apache.logging.log4j.core.appender.AbstractAppender;
-import org.apache.logging.log4j.core.config.Property;
 import org.apache.logging.log4j.core.config.plugins.Plugin;
 import org.apache.logging.log4j.core.config.plugins.PluginBuilderFactory;
 
 
-@Plugin(
-    name = "S3Appender",
-    category = "Core",
-    elementType = "appender"
-)
+@Plugin(name = "S3Appender", category = "Core", elementType = "appender")
 public class S3Appender extends AbstractAppender {
 
     private LoggingEventCache<Event> eventCache = null;
@@ -34,9 +29,8 @@ public class S3Appender extends AbstractAppender {
                         Filter filter, 
                         Layout<? extends Serializable> layout, 
                         boolean ignoreExceptions, 
-                        LoggingEventCache<Event> eventCache,
-                        Property[] property) {
-        super(name, filter, layout, ignoreExceptions, property);
+                        LoggingEventCache<Event> eventCache) {
+        super(name, filter, layout, ignoreExceptions);
         // null이 아닐 경우 그대로 반환해주고, null일 경우 NPE 발생
         Objects.requireNonNull(eventCache);
         this.eventCache = eventCache;
