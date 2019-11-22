@@ -29,7 +29,7 @@
         <s3Compression>false</s3Compression>
 
       <!-- Uncomment below to use SSE for S3. NOTE: SSE_S3 is the only supported option right now -->
-        <s3SseKeyType>SSE_S3</s3SseKeyType>
+        <!-- <s3SseKeyType>SSE_S3</s3SseKeyType> -->
 
     </S3Appender>
   </Appenders>
